@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎀 Selamat Habede 🎀</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ===== DECORATIVE CHARACTERS ===== -->
+    <!-- Hello Kitty corners -->
+    <img src="hellowkitty.png" alt="Hello Kitty" class="deco deco-tl" />
+    <img src="cinamonroll.png" alt="Cinnamoroll" class="deco deco-tr" />
+    <img src="totoro.png" alt="Totoro" class="deco deco-bl" />
+    <img src="kue.png" alt="Hello Kitty" class="deco deco-br" />
+
+    <!-- Floating decorative elements -->
+    <div class="floating-shapes">
+      <span class="shape shape-1">🌸</span>
+      <span class="shape shape-2">⭐</span>
+      <span class="shape shape-3">🎀</span>
+      <span class="shape shape-4">🌟</span>
+      <span class="shape shape-5">💕</span>
+      <span class="shape shape-6">🍭</span>
+      <span class="shape shape-7">🌈</span>
+      <span class="shape shape-8">✨</span>
+      <span class="shape shape-9">🎈</span>
+      <span class="shape shape-10">🍬</span>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- FASE 1: COUNTDOWN SCREEN                                     -->
+    <!-- ============================================================ -->
+    <section id="phase-countdown" class="phase active">
+      <div class="countdown-wrapper text-center">
+        <div class="countdown-badge">
+          🎂 Counting down to your special day! 🎂
+        </div>
+        <h1 class="countdown-title">
+          Happy Birthday<br /><span class="name-highlight">DINCIL! 🎀</span>
+        </h1>
+        <p class="countdown-subtitle">Tungguin yhh :3~</p>
+
+        <div class="timer-container">
+          <div class="timer-box">
+            <span id="days" class="timer-number">00</span>
+            <span class="timer-label">Hari</span>
+          </div>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <span id="hours" class="timer-number">00</span>
+            <span class="timer-label">Jam</span>
+          </div>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <span id="minutes" class="timer-number">00</span>
+            <span class="timer-label">Menit</span>
+          </div>
+          <div class="timer-separator">:</div>
+          <div class="timer-box">
+            <span id="seconds" class="timer-number">00</span>
+            <span class="timer-label">Detik</span>
+          </div>
+        </div>
+
+        <p class="countdown-hint">✨ Pokoknya tungguin! ✨</p>
+
+        <!-- Dev button to skip (remove in production) -->
+        <button class="btn btn-skip mt-3" onclick="skipToPhase2()">
+          ⏩ Skip (Dev Mode)
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- FASE 2: ENVELOPE REVEAL                                      -->
+    <!-- ============================================================ -->
+    <section id="phase-envelope" class="phase">
+      <div class="envelope-wrapper text-center">
+        <p class="envelope-hint animate-bounce-text">
+          💌 Ada pesan nich! Klik suratnya! 💌
+        </p>
+
+        <div class="envelope-scene" id="envelopeScene" onclick="openEnvelope()">
+          <!-- Envelope SVG -->
+          <div class="envelope" id="envelope">
+            <div class="envelope-body">
+              <div class="envelope-flap" id="envelopeFlap"></div>
+              <div class="envelope-front">
+                <div class="envelope-heart">💖</div>
+                <div class="envelope-to">To: El problematik 🌸</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Letter inside envelope -->
+          <div class="letter" id="letter">
+            <div class="letter-inner">
+              <div class="letter-header">
+                <span class="letter-sticker">🎂</span>
+                <h2 class="letter-title">Happy Birthday!</h2>
+                <span class="letter-sticker">🎀</span>
+              </div>
+              <div class="letter-divider">
+                <span>✦ ✦ ✦</span>
+              </div>
+              <p class="letter-body">
+                Hei kamu yang super duper kucai,<br /><br />
+                Selamat ulang tahun ya! 🎉 Di hari yang spesial ini, aku cuma
+                mau ngucapin doa dan harapan yang terbaik buat kamu. Semoga di
+                umur yang baru ini, kamu selalu dikasih kesehatan, kebahagiaan,
+                dan kelancaran buat semua urusan atau rencana-rencana kamu ke
+                depannya. 🌸<br /><br />
+                Semoga kamu juga selalu dikelilingi orang-orang yang suportif
+                dan bawa aura positif. Have a wonderful birthday and enjoy your
+                special day! ✨<br /><br />
+                Kamu berharga. Kamu luar biasa. Dan kamu sangat gg gamink kata
+                ilham! 💕<br /><br />
+                Selamat ulang tahun, dincil :3 🎉🎂🎊
+              </p>
+              <div class="letter-signature">
+                Sekian terimagaji,<br />
+                <strong>Friz RajaPepeng 🌸</strong>
+              </div>
+
+              <button
+                class="btn btn-next mt-4"
+                id="btnNext"
+                onclick="goToPhase3()"
+              >
+                🎞️ Lihat mini galerry &nbsp;→
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p class="envelope-click-hint" id="clickHint">
+          👆 Klik amplop untuk membukanya!
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- FASE 3: MEMORY SLIDESHOW                                     -->
+    <!-- ============================================================ -->
+    <section id="phase-slideshow" class="phase">
+      <div class="slideshow-wrapper text-center">
+        <div class="slideshow-header">
+          <h2 class="slideshow-title">🎞️ Kilas Balik 🎞️</h2>
+          <p class="slideshow-subtitle">Momen-momen berkesan :3</p>
+        </div>
+
+        <!-- Bootstrap Carousel -->
+        <div
+          id="memoryCarousel"
+          class="carousel slide carousel-fade memory-carousel"
+          data-bs-ride="carousel"
+          data-bs-interval="4000"
+        >
+          <!-- Indicators -->
+          <div class="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#memoryCarousel"
+              data-bs-slide-to="0"
+              class="active"
+              aria-current="true"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#memoryCarousel"
+              data-bs-slide-to="1"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#memoryCarousel"
+              data-bs-slide-to="2"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#memoryCarousel"
+              data-bs-slide-to="3"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#memoryCarousel"
+              data-bs-slide-to="4"
+            ></button>
+          </div>
+
+          <!-- Slides -->
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="memory-frame">
+                <div class="photo-frame">
+                  <img src="1.jpeg" alt="Kenangan 1" class="memory-photo" />
+                  <div class="photo-tape photo-tape-tl"></div>
+                  <div class="photo-tape photo-tape-tr"></div>
+                </div>
+                <div class="memory-caption">
+                  <span class="memory-emoji">🌸</span>
+                  <p>Awal kita ketemu jier <br />kamu jadi el nyimak :3</p>
+                  <span class="memory-date">~ Kenangan #1 ~</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="memory-frame">
+                <div class="photo-frame photo-frame-rotated">
+                  <img src="2.jpeg" alt="Kenangan 2" class="memory-photo" />
+                  <div class="photo-tape photo-tape-tl"></div>
+                  <div class="photo-tape photo-tape-tr"></div>
+                </div>
+                <div class="memory-caption">
+                  <span class="memory-emoji">🎉</span>
+                  <p>
+                    Nah ini waktu kita udah mulai banyak main dan ada cotakun
+                    jugaa :3<br />
+                  </p>
+                  <span class="memory-date">~ Kenangan #2 ~</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="memory-frame">
+                <div class="photo-frame photo-frame-rotated-left">
+                  <img src="3.jpeg" alt="Kenangan 3" class="memory-photo" />
+                  <div class="photo-tape photo-tape-tl"></div>
+                  <div class="photo-tape photo-tape-tr"></div>
+                </div>
+                <div class="memory-caption">
+                  <span class="memory-emoji">🌈</span>
+                  <p>Disini cakep banget aseli :3<br />when yhh ke bromo 🗺️</p>
+                  <span class="memory-date">~ Kenangan #3 ~</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="memory-frame">
+                <div class="photo-frame">
+                  <img src="4.jpeg" alt="Kenangan 4" class="memory-photo" />
+                  <div class="photo-tape photo-tape-tl"></div>
+                  <div class="photo-tape photo-tape-tr"></div>
+                </div>
+                <div class="memory-caption">
+                  <span class="memory-emoji">🤓</span>
+                  <p>Suki liar 😹<br /></p>
+                  <span class="memory-date">~ Kenangan #4 ~</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="memory-frame special-slide">
+                <div class="special-card">
+                  <div class="birthday-cake-anim">🎂</div>
+                  <h3 class="special-title">
+                    Semoga Ulang Tahunmu<br />Penuh Kebahagiaan!
+                  </h3>
+                  <p class="special-message">
+                    Thank you ya udah jadi bagian dari hari-hariku belakangan
+                    ini. Bersyukur banget bisa kenal sama kamu. 😁
+                  </p>
+                  <div class="special-wishes">
+                    <span class="wish-tag">✨ Sehat selalu</span>
+                    <span class="wish-tag">🌸 Bahagia terus</span>
+                    <span class="wish-tag">🌈 Sukses selalu</span>
+                    <span class="wish-tag">💖 Dicintai CEO kaya 7 turunan</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#memoryCarousel"
+            data-bs-slide="prev"
+          >
+            <div class="carousel-ctrl-btn">‹</div>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#memoryCarousel"
+            data-bs-slide="next"
+          >
+            <div class="carousel-ctrl-btn">›</div>
+          </button>
+        </div>
+
+        <!-- Replay button -->
+        <button class="btn btn-replay mt-4" onclick="restartExperience()">
+          🔄 Mulai Lagi dari Awal
+        </button>
+      </div>
+    </section>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+  </body>
+</html>

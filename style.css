@@ -1,0 +1,1080 @@
+/* ============================================================
+   BIRTHDAY SURPRISE - style.css
+   Pastel Kawaii Theme ✨
+   ============================================================ */
+
+/* ---- CSS Variables ---- */
+:root {
+  --pink: #ffb3c6;
+  --pink-dark: #ff85a1;
+  --pink-deep: #e9527a;
+  --lavender: #d4b8e0;
+  --lavender-dark: #b48fca;
+  --mint: #b8ebd4;
+  --mint-dark: #7dd4ad;
+  --sky: #b8deff;
+  --sky-dark: #7bbfff;
+  --peach: #ffd6b8;
+  --yellow: #fff0a0;
+  --yellow-dark: #ffdd57;
+  --white: #ffffff;
+  --text-dark: #6b4c6b;
+  --text-mid: #9b7db5;
+  --shadow-soft: 0 8px 32px rgba(200, 120, 180, 0.18);
+  --shadow-card: 0 12px 40px rgba(180, 100, 160, 0.22);
+  --font-display: "Pacifico", cursive;
+  --font-body: "Nunito", sans-serif;
+}
+
+/* ---- Base Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(
+    135deg,
+    #fff0f8 0%,
+    #f0e8ff 25%,
+    #e8f8ff 50%,
+    #f8ffe8 75%,
+    #fff8e8 100%
+  );
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Subtle dot pattern overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 179, 198, 0.3) 1px,
+    transparent 1px
+  );
+  background-size: 30px 30px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   DECORATIVE CHARACTERS
+   ============================================================ */
+.deco {
+  position: fixed;
+  width: clamp(70px, 10vw, 130px);
+  z-index: 10;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 12px rgba(180, 100, 160, 0.25));
+  opacity: 0.9;
+}
+
+.deco-tl {
+  top: 10px;
+  left: 10px;
+  animation: floatA 4.2s ease-in-out infinite;
+}
+.deco-tr {
+  top: 10px;
+  right: 10px;
+  animation: floatB 3.8s ease-in-out infinite;
+}
+.deco-bl {
+  bottom: 10px;
+  left: 10px;
+  animation: floatB 4.5s ease-in-out infinite;
+}
+.deco-br {
+  bottom: 10px;
+  right: 10px;
+  animation: floatA 3.5s ease-in-out infinite;
+}
+
+/* Floating decorative emoji shapes */
+.floating-shapes {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
+  font-size: clamp(16px, 2vw, 28px);
+  animation: floatShape linear infinite;
+  opacity: 0.55;
+  user-select: none;
+}
+
+.shape-1 {
+  left: 5%;
+  top: 15%;
+  animation-duration: 7s;
+  animation-delay: 0s;
+}
+.shape-2 {
+  left: 18%;
+  top: 70%;
+  animation-duration: 8s;
+  animation-delay: 1s;
+}
+.shape-3 {
+  left: 30%;
+  top: 30%;
+  animation-duration: 6s;
+  animation-delay: 2s;
+}
+.shape-4 {
+  left: 50%;
+  top: 85%;
+  animation-duration: 9s;
+  animation-delay: 0.5s;
+}
+.shape-5 {
+  left: 65%;
+  top: 10%;
+  animation-duration: 7.5s;
+  animation-delay: 1.5s;
+}
+.shape-6 {
+  left: 80%;
+  top: 55%;
+  animation-duration: 6.5s;
+  animation-delay: 3s;
+}
+.shape-7 {
+  left: 90%;
+  top: 25%;
+  animation-duration: 8.5s;
+  animation-delay: 0.8s;
+}
+.shape-8 {
+  left: 40%;
+  top: 60%;
+  animation-duration: 7.2s;
+  animation-delay: 2.2s;
+}
+.shape-9 {
+  left: 75%;
+  top: 80%;
+  animation-duration: 6.8s;
+  animation-delay: 1.2s;
+}
+.shape-10 {
+  left: 12%;
+  top: 45%;
+  animation-duration: 8.2s;
+  animation-delay: 3.5s;
+}
+
+/* ============================================================
+   PHASE SYSTEM
+   ============================================================ */
+.phase {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center; /* default: tengah vertikal (untuk fase 1 & 2) */
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Fase slideshow: mulai dari atas agar judul selalu terlihat */
+#phase-slideshow {
+  align-items: flex-start;
+  padding-top: clamp(16px, 3vh, 32px);
+  padding-bottom: clamp(16px, 3vh, 32px);
+}
+.phase.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.phase.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.8s ease,
+    visibility 0.8s ease;
+}
+
+/* ============================================================
+   FASE 1: COUNTDOWN
+   ============================================================ */
+.countdown-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  width: 100%;
+  padding: 20px;
+}
+
+.countdown-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--pink), var(--lavender));
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(12px, 2vw, 15px);
+  padding: 8px 22px;
+  border-radius: 100px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 16px rgba(255, 133, 161, 0.35);
+  animation: pulse-soft 2s ease-in-out infinite;
+  letter-spacing: 0.5px;
+}
+
+.countdown-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 6vw, 60px);
+  color: var(--text-dark);
+  line-height: 1.2;
+  margin-bottom: 10px;
+  text-shadow: 3px 3px 0 rgba(255, 179, 198, 0.5);
+}
+
+.name-highlight {
+  color: var(--pink-deep);
+  display: inline-block;
+  animation: wobble 2.5s ease-in-out infinite;
+}
+
+.countdown-subtitle {
+  font-size: clamp(14px, 2.5vw, 18px);
+  color: var(--text-mid);
+  font-weight: 600;
+  margin-bottom: 36px;
+}
+
+/* Timer */
+.timer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(4px, 1.5vw, 12px);
+  flex-wrap: nowrap; /* ← KUNCI: cegah wrap ke baris bawah */
+  margin-bottom: 28px;
+  width: 100%;
+}
+
+.timer-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border: 3px solid rgba(255, 179, 198, 0.5);
+  border-radius: 20px;
+  padding: clamp(10px, 2.5vw, 22px) clamp(8px, 2.5vw, 28px);
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  min-width: 0; /* ← izinkan menyusut jika perlu */
+  width: clamp(64px, 18vw, 110px);
+  flex-shrink: 1; /* ← boleh menyusut agar semua muat */
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+
+.timer-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--pink), var(--lavender), var(--sky));
+  border-radius: 4px 4px 0 0;
+}
+
+.timer-box:hover {
+  transform: scale(1.05);
+}
+
+.timer-number {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 5vw, 58px);
+  color: var(--text-dark);
+  line-height: 1;
+  display: block;
+  transition: transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.timer-number.tick {
+  animation: numberPop 0.15s ease;
+}
+
+.timer-label {
+  font-size: clamp(9px, 1.5vw, 13px);
+  font-weight: 800;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+
+.timer-separator {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4vw, 48px);
+  color: var(--pink-dark);
+  line-height: 1;
+  margin-bottom: 0; /* ← hilangkan margin bawah agar sejajar */
+  flex-shrink: 0;
+  animation: blink 1s step-end infinite;
+}
+
+.countdown-hint {
+  font-size: clamp(13px, 2vw, 16px);
+  color: var(--text-mid);
+  font-weight: 700;
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.btn-skip {
+  background: rgba(255, 255, 255, 0.5);
+  border: 2px dashed var(--lavender-dark);
+  color: var(--text-mid);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 100px;
+  padding: 8px 20px;
+  transition: all 0.2s;
+}
+.btn-skip:hover {
+  background: var(--lavender);
+  color: white;
+}
+
+/* ============================================================
+   FASE 2: ENVELOPE
+   ============================================================ */
+.envelope-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  width: 100%;
+  padding: 20px;
+}
+
+.envelope-hint {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 2.5vw, 20px);
+  font-weight: 800;
+  color: var(--pink-deep);
+  margin-bottom: 20px;
+}
+
+.animate-bounce-text {
+  animation: bounceText 1.5s ease-in-out infinite;
+}
+
+.envelope-scene {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  animation: bounceIn 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* The Envelope */
+.envelope {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.envelope:hover {
+  transform: scale(1.04);
+}
+
+.envelope-body {
+  position: relative;
+  width: clamp(240px, 60vw, 380px);
+  height: clamp(170px, 40vw, 270px);
+}
+
+.envelope-front {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #fff5f8, #ffe8f0);
+  border-radius: 12px;
+  border: 3px solid var(--pink);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.envelope-front::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(135deg, #ffd6e0, #ffbcd1);
+  clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-left: calc(clamp(240px, 60vw, 380px) / 2) solid transparent;
+  border-right: calc(clamp(240px, 60vw, 380px) / 2) solid transparent;
+  border-top: clamp(85px, 20vw, 135px) solid #ffb3c6;
+  border-radius: 12px 12px 0 0;
+  transform-origin: top center;
+  transition: transform 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  z-index: 2;
+  filter: drop-shadow(0 4px 8px rgba(255, 133, 161, 0.3));
+}
+
+.envelope-flap.open {
+  transform: rotateX(180deg);
+}
+
+.envelope-heart {
+  font-size: clamp(30px, 7vw, 48px);
+  z-index: 3;
+  animation: heartbeat 1.5s ease-in-out infinite;
+  position: relative;
+}
+
+.envelope-to {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 2vw, 14px);
+  font-weight: 700;
+  color: var(--pink-deep);
+  z-index: 3;
+  position: relative;
+}
+
+/* The Letter */
+.letter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  border: 3px solid var(--pink);
+  padding: clamp(20px, 4vw, 36px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s ease 0.4s,
+    transform 0.6s ease 0.4s;
+  z-index: 5;
+  max-height: 80vh;
+  overflow-y: auto;
+  pointer-events: none;
+}
+
+.letter.revealed {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+  position: relative;
+  animation: none;
+}
+
+.letter-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.letter-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.letter-sticker {
+  font-size: clamp(22px, 4vw, 32px);
+}
+
+.letter-title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 5vw, 40px);
+  color: var(--pink-deep);
+  text-shadow: 2px 2px 0 rgba(255, 179, 198, 0.5);
+}
+
+.letter-divider {
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--lavender-dark);
+  margin: 10px 0 16px;
+}
+
+.letter-body {
+  font-size: clamp(13px, 2vw, 16px);
+  color: var(--text-dark);
+  line-height: 1.9;
+  font-weight: 600;
+  background: linear-gradient(180deg, #fff5f8, #fff0f8);
+  border-radius: 12px;
+  padding: clamp(16px, 3vw, 24px);
+  border: 2px dashed var(--pink);
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.letter-signature {
+  font-size: clamp(13px, 2vw, 15px);
+  color: var(--text-mid);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.8;
+}
+
+/* Next button */
+.btn-next {
+  background: linear-gradient(135deg, var(--pink-deep), var(--lavender-dark));
+  border: none;
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(14px, 2.5vw, 18px);
+  padding: clamp(12px, 2vw, 16px) clamp(28px, 5vw, 44px);
+  border-radius: 100px;
+  box-shadow: 0 6px 20px rgba(233, 82, 122, 0.4);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.btn-next:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 30px rgba(233, 82, 122, 0.5);
+  color: white;
+}
+
+.envelope-click-hint {
+  font-size: clamp(13px, 2vw, 16px);
+  color: var(--text-mid);
+  font-weight: 700;
+  margin-top: 20px;
+  transition: opacity 0.5s;
+}
+
+/* ============================================================
+   FASE 3: SLIDESHOW
+   ============================================================ */
+.slideshow-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 750px;
+  width: 100%;
+  padding: 20px;
+  animation: fadeSlideUp 0.7s ease both;
+}
+
+.slideshow-header {
+  margin-bottom: 24px;
+}
+
+.slideshow-title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 4.5vw, 38px);
+  color: var(--text-dark);
+  text-shadow: 2px 2px 0 rgba(255, 179, 198, 0.4);
+  margin-bottom: 6px;
+}
+
+.slideshow-subtitle {
+  font-size: clamp(13px, 2vw, 16px);
+  color: var(--text-mid);
+  font-weight: 600;
+}
+
+/* Carousel */
+.memory-carousel {
+  border-radius: 24px;
+  overflow: visible;
+}
+
+.memory-carousel .carousel-indicators {
+  bottom: -40px;
+}
+
+.memory-carousel .carousel-indicators button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--pink);
+  border: none;
+  opacity: 0.5;
+  transition: all 0.3s;
+}
+
+.memory-carousel .carousel-indicators button.active {
+  opacity: 1;
+  transform: scale(1.3);
+  background-color: var(--pink-deep);
+}
+
+/* Memory frame */
+.memory-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 20px 20px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 3px solid rgba(255, 179, 198, 0.4);
+  box-shadow: var(--shadow-card);
+  min-height: unset; /* biarkan tinggi mengikuti isi */
+  justify-content: center;
+}
+
+/* Photo frame — lebar mengikuti foto, bukan sebaliknya */
+.photo-frame {
+  position: relative;
+  display: inline-block;
+  background: white;
+  padding: clamp(8px, 1.5vw, 14px);
+  padding-bottom: clamp(32px, 5vw, 50px); /* area putih polaroid bawah */
+  border-radius: 4px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.15),
+    0 2px 6px rgba(0, 0, 0, 0.1);
+  transform: rotate(1deg);
+  transition: transform 0.3s ease;
+  line-height: 0; /* hapus gap bawah gambar */
+  max-width: min(80vw, 420px); /* batas lebar bingkai */
+}
+
+.photo-frame:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+.photo-frame-rotated {
+  transform: rotate(-2deg);
+}
+.photo-frame-rotated:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+.photo-frame-rotated-left {
+  transform: rotate(1.5deg);
+}
+.photo-frame-rotated-left:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+.memory-photo {
+  display: block;
+  width: 100%; /* ikuti lebar bingkai */
+  height: auto; /* tinggi proporsional otomatis → tidak terpotong */
+  max-width: min(72vw, 390px);
+  object-fit: unset; /* matikan paksa crop */
+  border-radius: 2px;
+}
+
+/* Washi tape decorations */
+.photo-tape {
+  position: absolute;
+  width: 45px;
+  height: 18px;
+  border-radius: 3px;
+  opacity: 0.85;
+}
+.photo-tape-tl {
+  top: -8px;
+  left: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 179, 198, 0.7),
+    rgba(212, 184, 224, 0.7)
+  );
+  transform: rotate(-8deg);
+}
+.photo-tape-tr {
+  top: -8px;
+  right: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(184, 235, 212, 0.7),
+    rgba(184, 222, 255, 0.7)
+  );
+  transform: rotate(7deg);
+}
+
+/* Memory caption */
+.memory-caption {
+  text-align: center;
+}
+
+.memory-emoji {
+  font-size: clamp(22px, 4vw, 30px);
+  display: block;
+  margin-bottom: 8px;
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+.memory-caption p {
+  font-size: clamp(13px, 2vw, 16px);
+  color: var(--text-dark);
+  font-weight: 700;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.memory-date {
+  font-size: clamp(11px, 1.8vw, 13px);
+  color: var(--text-mid);
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* Special slide */
+.special-slide {
+  background: linear-gradient(135deg, #fff0f8, #f0e8ff, #e8f8ff);
+}
+
+.special-card {
+  padding: clamp(20px, 4vw, 36px);
+  text-align: center;
+}
+
+.birthday-cake-anim {
+  font-size: clamp(50px, 10vw, 80px);
+  display: block;
+  margin-bottom: 16px;
+  animation: cakeBounce 1s ease-in-out infinite alternate;
+}
+
+.special-title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 4vw, 32px);
+  color: var(--pink-deep);
+  margin-bottom: 14px;
+  line-height: 1.3;
+  text-shadow: 2px 2px 0 rgba(255, 179, 198, 0.4);
+}
+
+.special-message {
+  font-size: clamp(13px, 2vw, 15px);
+  color: var(--text-dark);
+  font-weight: 600;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.special-wishes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.wish-tag {
+  background: linear-gradient(135deg, var(--pink), var(--lavender));
+  color: white;
+  font-size: clamp(11px, 1.8vw, 13px);
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 100px;
+  box-shadow: 0 3px 10px rgba(255, 133, 161, 0.3);
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+.wish-tag:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.wish-tag:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.wish-tag:nth-child(4) {
+  animation-delay: 0.9s;
+}
+
+/* Carousel controls */
+.carousel-ctrl-btn {
+  width: clamp(38px, 6vw, 50px);
+  height: clamp(38px, 6vw, 50px);
+  background: linear-gradient(135deg, var(--pink), var(--lavender));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(20px, 3.5vw, 28px);
+  color: white;
+  font-weight: 900;
+  box-shadow: 0 4px 14px rgba(255, 133, 161, 0.4);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  margin: 0 -20px;
+}
+
+.carousel-ctrl-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(255, 133, 161, 0.5);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: auto;
+  opacity: 1;
+}
+
+/* Replay button */
+.btn-replay {
+  background: linear-gradient(135deg, var(--mint-dark), var(--sky-dark));
+  border: none;
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(13px, 2vw, 16px);
+  padding: 12px 32px;
+  border-radius: 100px;
+  box-shadow: 0 6px 18px rgba(125, 212, 173, 0.4);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.btn-replay:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 10px 24px rgba(125, 212, 173, 0.5);
+  color: white;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+/* Float animations for deco characters */
+@keyframes floatA {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(3deg);
+  }
+}
+@keyframes floatB {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(3deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(-3deg);
+  }
+}
+
+/* Floating shape animation */
+@keyframes floatShape {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(-18px) rotate(180deg);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(0px) rotate(360deg);
+    opacity: 0.55;
+  }
+}
+
+/* Pulse soft */
+@keyframes pulse-soft {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+/* Wobble for name */
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+/* Timer blink */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Number pop when ticking */
+@keyframes numberPop {
+  0% {
+    transform: scale(1.3);
+    color: var(--pink-deep);
+  }
+  100% {
+    transform: scale(1);
+    color: var(--text-dark);
+  }
+}
+
+/* Bounce in for envelope */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Bounce text */
+@keyframes bounceText {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Heartbeat */
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.15);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+/* Cake bounce */
+@keyframes cakeBounce {
+  0% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  100% {
+    transform: translateY(-12px) rotate(5deg);
+  }
+}
+
+/* Fade slide up */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 576px) {
+  .deco {
+    width: 100px;
+  }
+  .timer-container {
+    gap: 3px;
+  }
+  .timer-separator {
+    font-size: 20px;
+  }
+  .timer-box {
+    border-radius: 14px;
+    border-width: 2px;
+  }
+  .envelope-body {
+    width: 88vw;
+    height: calc(88vw * 0.7);
+  }
+  .envelope-flap {
+    border-left-width: 44vw;
+    border-right-width: 44vw;
+    border-top-width: calc(88vw * 0.35);
+  }
+  .carousel-ctrl-btn {
+    margin: 0 -5px;
+  }
+}
+
+@media (max-width: 400px) {
+  .timer-box {
+    width: clamp(54px, 17vw, 70px);
+    padding: 8px 4px;
+    border-radius: 12px;
+  }
+  .timer-separator {
+    font-size: 16px;
+  }
+  .deco {
+    width: 68px; /* tetap tampil, tidak disembunyikan */
+  }
+}
